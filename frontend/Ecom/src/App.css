@@ -1,0 +1,18 @@
+body{
+  background-color: white;
+}
+
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: white;
+  background: transparent;
+  
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 30px;
+  height: 25px;
+
+}
