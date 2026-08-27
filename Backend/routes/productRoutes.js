@@ -5,6 +5,7 @@ const router = express.Router();
 const {
   createProduct,
   getProducts,
+  getProductsByCategory,
   getSingleProduct,
   updateProduct,
   deleteProduct,
@@ -40,6 +41,9 @@ router.post(
 // ==========================================
 
 router.get("/", getProducts);
+
+//GET PRODUCT BY CATEGORY
+router.get("/category/:category", getProductsByCategory);
 
 // ==========================================
 // GET SINGLE PRODUCT

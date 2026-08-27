@@ -393,6 +393,29 @@ const getSingleProduct = async (req, res) => {
 
 };
 
+//GET PRODUCT BY CATEGORY
+
+const getProductsByCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+
+    const products = await Product.find({
+      category: category
+    });
+
+    res.status(200).json({
+      success: true,
+      products
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
 
 
 // =====================================================
@@ -737,6 +760,8 @@ module.exports = {
   createProduct,
 
   getProducts,
+
+  getProductsByCategory,
 
   getSingleProduct,
 

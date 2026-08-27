@@ -9,9 +9,26 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 
 function About() {
+    const [loading, setLoading] = useState(true);
+     useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500); // 2000ms = 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+ if (loading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-12 h-12 border-4 border-gray-300 border-t-[#dab37a] rounded-full animate-spin"></div>
+    </div>
+  );
+}
     return(
         <section className="flex flex-col mt-20 px-6 py-6 gap-12"
                 style={{ fontFamily: "poppins" }} >

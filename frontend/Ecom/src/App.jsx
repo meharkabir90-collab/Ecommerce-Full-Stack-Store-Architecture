@@ -4,13 +4,15 @@ import Navbar from '../src/Components/Header/Navbar'
 import Footer from '../src/Components/Footer/Footer'
 import Home from '../src/pages/Home'
 import About from '../src/pages/About'
-import Football from '../src/pages/Football'
+import Football from '../src/pages/Products'
 import Register from '../src/pages/Register'
 import Login from '../src/pages/Login'
 import Cart from '../src/pages/Cart'
 import Order from '../src/pages/Order'
 import MyOrders from '../src/pages/myOrders'
 import Profile from '../src/pages/Profile'
+import CategoryFootball from '../src/pages/CategoryFootball'
+
 import ProtectedAdminRoute from '../src/Components/adminRoute/Admin'
 import Menu from './Admin/Menu'
 import MenuForm from '../src/Admin/Menuform'
@@ -76,6 +78,10 @@ function App() {
         <Route
           path="/order"
           element={<Order />}
+        />
+        <Route
+          path="/categories/football"
+          element={<CategoryFootball />}
         />
 
         

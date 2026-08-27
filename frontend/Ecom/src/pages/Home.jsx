@@ -60,25 +60,34 @@ function Home() {
   const [del, setDel] = useState([]);
   const [pro, setPro] = useState([]);
   const [post, setPost] = useState([]);
-
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
  
 
 useEffect(() => {
   const fetchAllData = async () => {
     try {
-      const [sliderData, introData, objData, delData, proData, postData, footerData] = await Promise.all([
+      setLoading(true);
+
+      const [
+        sliderData,
+        introData,
+        objData,
+        delData,
+        proData,
+        postData,
+        footerData
+      ] = await Promise.all([
         getSlider(),
         getIntroduction(),
         getObjective(),
         getDelivery(),
         getProducts(),
         getPost(),
-        
       ]);
-    console.log("post:", postData);
+
+      console.log("post:", postData);
+
       setSliders(sliderData.sliders || []);
       setIntro(introData.introduction);
       setObj(objData.objective);
@@ -88,14 +97,25 @@ useEffect(() => {
 
     } catch (error) {
       console.log("Failed to load home data:", error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     }
   };
+
   fetchAllData();
 }, []);
 
-
-
+if (loading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-12 h-12 border-4 border-gray-300 border-t-[#dab37a] rounded-full animate-spin"></div>
+    </div>
+  );
+}
     return(
+      
     <div>
         <Swiper
       modules={[Navigation, Pagination, Autoplay]}

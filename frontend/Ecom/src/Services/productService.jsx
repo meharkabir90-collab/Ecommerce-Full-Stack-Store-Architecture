@@ -20,6 +20,14 @@ export const createProduct = async (productData) => {
   return response.data;
 };
 
+// get product by category
+export const getProductByCategory = async (category) => {
+  const response = await API.get(
+    `/product/category/${encodeURIComponent(category)}`
+  );
+  return response.data;
+};
+
 // UPDATE a menu by id
 export const updateProduct = async (id, productData) => {
   const response = await API.put(`/product/${id}`, productData);

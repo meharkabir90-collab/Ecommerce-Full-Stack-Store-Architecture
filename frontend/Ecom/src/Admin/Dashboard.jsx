@@ -10,6 +10,7 @@ import StatisticsChart from "./ecommerce/StatisticsChart"
 
 function Dashboard() {
   const [dashboard, setDashboard] = useState(null);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -21,19 +22,25 @@ function Dashboard() {
         setDashboard(data.dashboard);
       } catch (error) {
         console.error("Failed to load dashboard:", error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+
+        }, 500)
+        
       }
     };
 
     fetchDashboard();
   }, []);
 
-  if (!dashboard) {
-    return (
-      <div className="p-8">
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  if (loading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-12 h-12 border-4 border-gray-300 border-t-[#dab37a] rounded-full animate-spin"></div>
+    </div>
+  );
+}
 
   return (
     <div className="min-w-0 w-full overflow-hidden p-8">

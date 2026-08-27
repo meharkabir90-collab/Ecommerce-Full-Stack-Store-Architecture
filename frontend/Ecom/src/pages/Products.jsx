@@ -81,7 +81,7 @@ function Football() {
       <section className="flex items-center justify-center gap-4 text-3xl font-bold">
         <hr className="w-96 border-t-2 border-gray-200" />
 
-        <h1>FOOTBALL</h1>
+        <h1>PRODUCT CATEGORIES</h1>
 
         <hr className="w-96 border-t-2 border-gray-200" />
       </section>
