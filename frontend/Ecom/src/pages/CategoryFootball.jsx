@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { getProductByCategory } from "../Services/productService";
-import ProductCard from "../Components/adminRoute/ProductCard/ProductCard";
+import ProductCard from "../Components/ProductCard/ProductCard";
 
 const Football = () => {
   const navigate = useNavigate();
