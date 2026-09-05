@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
 import Image1 from '../assets/banner.webp';
 import Image2 from '../assets/banner2.webp';
 import Image6 from '../assets/banner3.webp';

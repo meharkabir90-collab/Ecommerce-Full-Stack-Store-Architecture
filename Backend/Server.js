@@ -28,12 +28,12 @@ app.use(express.json());
 
 const cors = require('cors');
 app.use(cors({
-    origin: 
-        ['http://localhost:5173'],
-          credentials: true   
-    
-})
-);
+    origin: [
+        "http://localhost:5173",
+        "https://ecommerce-system-architecture.vercel.app"
+    ],
+    credentials: true
+}));
 
 
 
@@ -62,12 +62,17 @@ app.use('/', (req, res) => {
 
 );
 
-const PORT = 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`);
+const PORT = process.env.PORT || 5000;
+
+if (process.env.VERCEL !== '1') {
+    app.listen(PORT, () => {
+        console.log(`Server is running on ${PORT}`);
+    });
 }
 
-);
+
+
+module.exports = app;
 
 
 

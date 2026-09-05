@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { getProductByCategory } from "../Services/productService";
-import ProductCard from "../Components/ProductCard/ProductCard";
+import { getProductByCategory } from "../../Services/productService";
+import ProductCard from "../../Components/ProductCard/ProductCard";
 
-const Football = () => {
+const Cricket = () => {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
@@ -12,9 +12,9 @@ const Football = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchFootballProducts = async () => {
+    const fetchCricketProducts = async () => {
       try {
-        const response = await getProductByCategory("FOOTBALL KIT");
+        const response = await getProductByCategory("CRICKET");
 
         setProducts(response.products || []);
       } catch (error) {
@@ -25,11 +25,11 @@ const Football = () => {
       }
     };
 
-    fetchFootballProducts();
+    fetchCricketProducts();
   }, []);
 
   if (loading) {
-    return <p>Loading football products...</p>;
+    return <p>Loading cricket products...</p>;
   }
 
   if (error) {
@@ -55,7 +55,7 @@ const Football = () => {
             &gt;
           </span>
 
-          Football
+          Cricket
 
         </span>
 
@@ -74,7 +74,7 @@ const Football = () => {
 
         <hr className="w-96 border-t-2 border-gray-200" />
 
-        <h1 className=""style={{ fontFamily: "Poppins" }}>FOOTBALL</h1>
+        <h1 className=""style={{ fontFamily: "Poppins" }}>CRICKET</h1>
 
         <hr className="w-96 border-t-2 border-gray-200" />
 
@@ -101,4 +101,4 @@ const Football = () => {
   );
 };
 
-export default Football;
+export default Cricket;

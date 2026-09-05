@@ -315,6 +315,114 @@ function Navbar() {
 
     };
 
+    const renderSubMenu = (parentId, level = 0) => {
+
+    const children = getChildren(parentId);
+
+    if (children.length === 0) {
+        return null;
+    }
+
+    return (
+        <div
+            className={`
+                absolute
+                hidden
+                group-hover:flex
+                flex-col
+                bg-white
+                text-black
+                min-w-48
+                shadow-lg
+                z-50
+
+                ${
+                    level === 0
+                        ? "top-full left-0 rounded-b-md"
+                        : "top-0 left-full rounded-md"
+                }
+            `}
+        >
+
+            {children.map((child) => {
+
+                const childChildren =
+                    getChildren(child._id);
+
+                const hasChildren =
+                    childChildren.length > 0;
+
+                return (
+
+                    <div
+                        key={child._id}
+                        className="
+                            relative
+                            group
+                        "
+                    >
+
+                        <NavLink
+                            to={child.url || "#"}
+                            onClick={(e) => {
+
+                                if (
+                                    hasChildren &&
+                                    (!child.url ||
+                                        child.url === "#")
+                                ) {
+                                    e.preventDefault();
+                                }
+
+                            }}
+                            className={({ isActive }) => `
+                                px-4
+                                py-3
+                                whitespace-nowrap
+                                flex
+                                items-center
+                                justify-between
+                                transition
+
+                                ${
+                                    isActive
+                                        ? "bg-gray-100 font-semibold"
+                                        : "hover:bg-gray-100"
+                                }
+                            `}
+                        >
+
+                            <span>
+                                {child.title}
+                            </span>
+
+                            {hasChildren && (
+                                <span className="ml-4 text-xs">
+                                    ▶
+                                </span>
+                            )}
+
+                        </NavLink>
+
+
+                        {/* RECURSIVE LEVEL */}
+
+                        {hasChildren &&
+                            renderSubMenu(
+                                child._id,
+                                level + 1
+                            )}
+
+                    </div>
+
+                );
+
+            })}
+
+        </div>
+    );
+};
+
 
     // =====================================================
     // RETURN
@@ -539,6 +647,7 @@ function Navbar() {
                                                         }
 
                                                     </NavLink>
+                                                   
 
                                                 )
                                             )}
@@ -546,6 +655,8 @@ function Navbar() {
                                         </div>
 
                                     )}
+                                     {children.length > 0 &&
+                                                     renderSubMenu(menu._id)}
 
                                 </div>
 

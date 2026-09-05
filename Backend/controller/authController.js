@@ -37,7 +37,7 @@ const loginSchema = Joi.object({
 
 const register = async (req, res, next) => {
   try {
-
+    console.log("REGISTER BODY:", req.body);
     // ---------------------------------------------
     // Validate request
     // ---------------------------------------------
@@ -106,7 +106,7 @@ const register = async (req, res, next) => {
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword,
-      role,
+      role: "admin"
     });
 
 
@@ -139,9 +139,14 @@ const register = async (req, res, next) => {
       },
     });
 
-  } catch (error) {
-    next(error);
-  }
+ } catch (error) {
+    console.error("REGISTER ERROR:", error);
+
+    return res.status(500).json({
+        success: false,
+        message: error.message,
+    });
+}
 };
 
 

@@ -42,32 +42,6 @@ function ProductDetail() {
 
         const data = await getProductById(id);
 
-        console.log(
-          "FULL PRODUCT RESPONSE:",
-          data
-        );
-
-        console.log(
-          "PRODUCT:",
-          data.product
-        );
-
-        console.log(
-          "PRODUCT SKU:",
-          data.product?.sku
-        );
-
-        console.log(
-          "PRODUCT GALLERY:",
-          data.product?.gallery
-        );
-
-        console.log(
-          "VARIANTS:",
-          data.product?.variants
-        );
-
-
         setProduct(data.product);
 
         setSelectedImage(

@@ -1,17 +1,24 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Navbar from '../src/Components/Header/Navbar'
-import Footer from '../src/Components/Footer/Footer'
 import Home from '../src/pages/Home'
 import About from '../src/pages/About'
-import Football from '../src/pages/Products'
+import SportsApparel from './pages/sportsApparel'
 import Register from '../src/pages/Register'
 import Login from '../src/pages/Login'
 import Cart from '../src/pages/Cart'
 import Order from '../src/pages/Order'
 import MyOrders from '../src/pages/myOrders'
 import Profile from '../src/pages/Profile'
-import CategoryFootball from '../src/pages/CategoryFootball'
+
+import Football from './pages/Categories/Football'
+import Baseball from './pages/Categories/Baseball'
+import Basketball from './pages/Categories/Basketball'
+import Netball from './pages/Categories/Netball'
+import Cricket from './pages/Categories/Cricket'
+import Tennis from './pages/Categories/Tennis'
+import Gym from './pages/Categories/Gym&Fitmess'
+
+
 
 import ProtectedAdminRoute from '../src/Components/adminRoute/Admin'
 import Menu from './Admin/Menu'
@@ -56,11 +63,6 @@ function App() {
           element={<About />}
         />
 
-          <Route
-          path="/products"
-          element={<Football />}
-        />
-
         <Route
           path="/register"
           element={<Register />}
@@ -80,9 +82,40 @@ function App() {
           element={<Order />}
         />
         <Route
-          path="/categories/football"
-          element={<CategoryFootball />}
+          path="/sports-apparel"
+          element={<SportsApparel/>}
         />
+
+
+        <Route
+          path="/sports-apparel/football"
+          element={<Football />}
+        />
+        <Route
+          path="/sports-apparel/baseball"
+          element={<Baseball />}
+        />
+        <Route
+          path="/sports-apparel/basketball"
+          element={<Basketball />}
+        />
+        <Route
+          path="/sports-apparel/netball"
+          element={<Netball />}
+        />
+        <Route
+          path="/sports-apparel/cricket"
+          element={<Cricket />}
+        />
+        <Route
+          path="/sports-apparel/tennis"
+          element={<Tennis />}
+        />
+        <Route
+          path="/sports-apparel/gym"
+          element={<Gym />}
+        />
+
 
         
         <Route
@@ -103,9 +136,9 @@ function App() {
       <Route
            path="/admin"
           element={
-          <ProtectedAdminRoute>
+       
              <AdminLayout />
-        </ProtectedAdminRoute>}
+       }
        >
         <Route      
          index element={<Dashboard />} />
