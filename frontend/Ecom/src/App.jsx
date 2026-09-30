@@ -16,7 +16,9 @@ import Basketball from './pages/Categories/Basketball'
 import Netball from './pages/Categories/Netball'
 import Cricket from './pages/Categories/Cricket'
 import Tennis from './pages/Categories/Tennis'
+import Volleyball from './pages/Categories/Volleyball'
 import Gym from './pages/Categories/Gym&Fitmess'
+import MenuCategory from './pages/MenuCategory'
 
 
 
@@ -112,6 +114,10 @@ function App() {
           element={<Tennis />}
         />
         <Route
+          path="/sports-apparel/volleyball"
+          element={<Volleyball />}
+        />
+        <Route
           path="/sports-apparel/gym"
           element={<Gym />}
         />
@@ -129,6 +135,11 @@ function App() {
             <Profile />
           }
         
+        />
+
+        <Route
+          path="*"
+          element={<MenuCategory />}
         />
 
       </Route>

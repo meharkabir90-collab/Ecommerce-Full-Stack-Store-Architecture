@@ -52,11 +52,35 @@ function EditWebSettings() {
  const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const formData = new FormData();
-  if (logoFile) formData.append("logo", logoFile);
+  try {
+    setSaving(true);
 
-  await updateSetting(formData);
-  navigate("/admin/settings");
+    const formData = new FormData();
+
+    formData.append("address1", form.address1 || "");
+    formData.append("address2", form.address2 || "");
+    formData.append("address3", form.address3 || "");
+    formData.append("phone", form.phone || "");
+    formData.append("whatsapp", form.whatsapp || "");
+    formData.append("email", form.email || "");
+    formData.append("facebook", form.facebook || "");
+    formData.append("instagram", form.instagram || "");
+    formData.append("linkedin", form.linkedin || "");
+    formData.append("twitter", form.twitter || "");
+    formData.append("youtube", form.youtube || "");
+
+    if (logoFile) {
+      formData.append("logo", logoFile);
+    }
+
+    await updateSetting(formData);
+
+    navigate("/admin/settings");
+  } catch (error) {
+    console.error("Failed to update settings:", error);
+  } finally {
+    setSaving(false);
+  }
 };
 
    const handleLogoFileChange = (e) => {

@@ -35,6 +35,8 @@ function Navbar() {
 
     const [cartCount, setCartCount] = useState(0);
 
+    const [openSubMenuIds, setOpenSubMenuIds] = useState([]);
+
 
     const location = useLocation();
 
@@ -318,6 +320,7 @@ function Navbar() {
     const renderSubMenu = (parentId, level = 0) => {
 
     const children = getChildren(parentId);
+    const isOpen = openSubMenuIds[level - 1] === parentId;
 
     if (children.length === 0) {
         return null;
@@ -327,19 +330,28 @@ function Navbar() {
         <div
             className={`
                 absolute
-                hidden
-                group-hover:flex
+                flex
                 flex-col
-                bg-white
-                text-black
                 min-w-48
-                shadow-lg
                 z-50
+                rounded-md
+                border
+                border-gray-100
+                bg-white
+                py-2
+                text-black
+                shadow-xl
+                ring-1
+                ring-black/5
+                transition-[opacity,transform,visibility]
+                duration-300
+                ease-out
+                motion-reduce:transition-none
 
                 ${
                     level === 0
-                        ? "top-full left-0 rounded-b-md"
-                        : "top-0 left-full rounded-md"
+                        ? "top-full left-0 rounded-b-md invisible pointer-events-none -translate-y-2 scale-[0.98] opacity-0 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100"
+                        : `top-0 left-full rounded-md ${isOpen ? "visible pointer-events-auto translate-y-0 scale-100 opacity-100" : "invisible pointer-events-none -translate-y-2 scale-[0.98] opacity-0"}`
                 }
             `}
         >
@@ -358,8 +370,44 @@ function Navbar() {
                         key={child._id}
                         className="
                             relative
-                            group
                         "
+                        onMouseEnter={() => {
+                            if (hasChildren) {
+                                setOpenSubMenuIds((openIds) => [
+                                    ...openIds.slice(0, level),
+                                    child._id,
+                                ]);
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            if (hasChildren) {
+                                setOpenSubMenuIds((openIds) =>
+                                    openIds[level] === child._id
+                                        ? openIds.slice(0, level)
+                                        : openIds
+                                );
+                            }
+                        }}
+                        onFocus={() => {
+                            if (hasChildren) {
+                                setOpenSubMenuIds((openIds) => [
+                                    ...openIds.slice(0, level),
+                                    child._id,
+                                ]);
+                            }
+                        }}
+                        onBlur={(event) => {
+                            if (
+                                hasChildren &&
+                                !event.currentTarget.contains(event.relatedTarget)
+                            ) {
+                                setOpenSubMenuIds((openIds) =>
+                                    openIds[level] === child._id
+                                        ? openIds.slice(0, level)
+                                        : openIds
+                                );
+                            }
+                        }}
                     >
 
                         <NavLink
@@ -382,12 +430,15 @@ function Navbar() {
                                 flex
                                 items-center
                                 justify-between
-                                transition
+                                border-l-2
+                                border-transparent
+                                transition-colors
+                                duration-200
 
                                 ${
                                     isActive
-                                        ? "bg-gray-100 font-semibold"
-                                        : "hover:bg-gray-100"
+                                    ? "border-black bg-gray-100 font-semibold"
+                                    : "hover:border-gray-400 hover:bg-gray-50"
                                 }
                             `}
                         >
@@ -590,71 +641,6 @@ function Navbar() {
                                     </NavLink>
 
 
-                                    {/* =================================================
-                                        SUBMENU
-                                    ================================================= */}
-
-                                    {children.length >
-                                        0 && (
-
-                                        <div
-                                            className="
-                                                absolute
-                                                top-full
-                                                left-0
-                                                hidden
-                                                group-hover:flex
-                                                flex-col
-                                                bg-white
-                                                text-black
-                                                min-w-48
-                                                shadow-lg
-                                                rounded-b-md
-                                                overflow-hidden
-                                            "
-                                        >
-
-                                            {children.map(
-                                                (child) => (
-
-                                                    <NavLink
-                                                        key={
-                                                            child._id
-                                                        }
-                                                        to={
-                                                            child.url ||
-                                                            "#"
-                                                        }
-                                                        className={({
-                                                            isActive,
-                                                        }) =>
-                                                            `
-                                                            px-4
-                                                            py-3
-                                                            whitespace-nowrap
-                                                            transition
-                                                            ${
-                                                                isActive
-                                                                    ? "bg-gray-100 font-semibold"
-                                                                    : "hover:bg-gray-100"
-                                                            }
-                                                            `
-                                                        }
-                                                    >
-
-                                                        {
-                                                            child.title
-                                                        }
-
-                                                    </NavLink>
-                                                   
-
-                                                )
-                                            )}
-
-                                        </div>
-
-                                    )}
                                      {children.length > 0 &&
                                                      renderSubMenu(menu._id)}
 

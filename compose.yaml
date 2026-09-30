@@ -1,0 +1,24 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: ecommerce-backend-compose
+    env_file:
+      - ./Backend/.env
+    environment:
+      PORT: 5000
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./frontend/Ecom
+      dockerfile: Dockerfile
+    container_name: ecommerce-frontend-compose
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:5000/api
+    ports:
+      - "5173:5173"

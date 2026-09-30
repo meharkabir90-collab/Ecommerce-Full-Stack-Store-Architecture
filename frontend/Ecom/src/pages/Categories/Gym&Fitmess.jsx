@@ -18,18 +18,18 @@ const Gym = () => {
 
         setProducts(response.products || []);
       } catch (error) {
-        console.error("Error fetching football products:", error);
-        setError("Failed to load football products");
+        console.error("Error fetching gym products:", error);
+        setError("Failed to load gym products");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchTennisProducts();
+    fetchGymProducts();
   }, []);
 
   if (loading) {
-    return <p>Loading Tennis products...</p>;
+    return <p>Loading Gym products...</p>;
   }
 
   if (error) {
